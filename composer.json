@@ -1,0 +1,19 @@
+{
+    "name": "vendor/conception",
+    "description": "package for conception without code writter",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniel Assani",
+            "email": "devasddaniel@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+    
+}

@@ -1,0 +1,23 @@
+<?php  
+include("init.php");
+
+
+if(count($argv)>1){
+    $data = "";
+
+    for($i=1; $i<count($argv); $i++){
+
+        $data = $data.' '.$argv[$i];
+    }
+    commande($data);
+}else{
+    echo "type help for help";
+}
+
+
+
+
+
+
+
+?>
