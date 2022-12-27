@@ -23,7 +23,7 @@ use app\Domain\Exemple;
 // $commandes->run();
 $cmd = new Command();
 $cmd->setSource("json/index.json");
-var_dump($cmd->childProcess);
+$cmd->run();
 
 // $exemple = new Exemple([1, 2, 3]);
 // var_dump($exemple->a);

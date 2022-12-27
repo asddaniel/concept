@@ -56,20 +56,30 @@ class Command{
             array_push($this->list, $cmd);
     }
 
-    public function run():void   {
-        $tab = [];
-        // ob_start();
+    public function run():void   
+    {
+       
+       $this->run_main_commands();
+       $this->run_child();
+       
+    
+    }
+    protected function run_main_commands()
+    {
         if(!empty($this->list)){
             foreach ($this->list as $key => $value) {
                
             $array =    $this->commande(($this->prefix??"php ").$value);
-               array_push($tab, $array); 
+               
             }
            
         }
-    //     $affiche = ob_get_contents();
-    //     ob_end_clean();
-    //    var_dump($tab);
+    }
+    protected function run_child()
+    {
+         foreach ($this->childProcess as $key => $value) {
+              $value->run();
+         }
     }
     protected function  commande(String $commande){
         return system($commande);
