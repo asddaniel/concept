@@ -67,6 +67,9 @@ class Command{
     protected function run_main_commands()
     {
         if(!empty($this->list)){
+            if(strlen($this->target_dir)>0){
+                $this->commande("cd ".$this->target_dir);
+            }
             foreach ($this->list as $key => $value) {
                
             $array =    $this->commande(($this->prefix??"php ").$value);
