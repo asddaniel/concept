@@ -4,7 +4,7 @@
 
 require 'vendor/autoload.php';
 
-
+session_start();
 
 function  commande(String $commande){
     $data =  system($commande, $retour);

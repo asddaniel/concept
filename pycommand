@@ -3,5 +3,6 @@ import os
 
 
 if len(sys.argv)>1:
-    os.system(" ".join(sys.argv[1:len(sys.argv)]))
+   text = os.system(" ".join(sys.argv[1:len(sys.argv)]))
+   print(text)
     #print(" ".join(sys.argv[1:len(sys.argv)]))
