@@ -12,7 +12,7 @@ if(count($argv)>1){
     }
     commande($data);
 }else{
-    echo "type help for help";
+    print("type help for help");
 }
 
 
