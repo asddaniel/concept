@@ -18,7 +18,7 @@ class Command{
     ];
 
     public function __construct( String $type="standard", String  $source="", String $prefix="",
-    array $list=[], string $target_dir="", string $description="", string $tag="", array $childProcess=[]){
+    array $list=[], string $target_dir="output", string $description="", string $tag="", array $childProcess=[]){
         $this->source = $source;
         $this->type = $type;
         $this->prefix = $prefix;
@@ -58,7 +58,11 @@ class Command{
 
     public function run():void   
     {
+        if(strlen($this->target_dir)>0){
+            $this->makedir($this->target_dir);
+        }
        
+
        $this->run_main_commands();
        $this->run_child();
        
@@ -67,9 +71,7 @@ class Command{
     protected function run_main_commands()
     {
         if(!empty($this->list)){
-            if(strlen($this->target_dir)>0){
-                $this->commande("cd ".$this->target_dir);
-            }
+            
             foreach ($this->list as $key => $value) {
                
             $array =    $this->commande(($this->prefix??"php ").$value);
@@ -83,6 +85,12 @@ class Command{
          foreach ($this->childProcess as $key => $value) {
               $value->run();
          }
+    }
+
+    protected function makedir(string $dirname){
+        if(file_exists($dirname)){
+             $this->commande("mkdir ".$dirname);
+        }
     }
     protected function  commande(String $commande){
         return system($commande);
