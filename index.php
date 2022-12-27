@@ -17,7 +17,8 @@ use app\Command\Command;
 // 	
 
 $commandes = new command(source:"article", type:"standard");
-
-var_dump($commandes->source)
+$commandes->setPrefix("");
+$commandes->list = ["php --version", "java"];
+$commandes->run();
 
 ?>

@@ -7,7 +7,15 @@ require 'vendor/autoload.php';
 
 
 function  commande(String $commande){
-    return system($commande);
+    $data =  system($commande, $retour);
+    return $data;
+}
+
+function execute($valeur){
+    $output=null;
+    $retval=null;
+     exec($valeur,$output, $retval);
+     return $output;
 }
 function url_serveur($link){
     $structure = new st();
