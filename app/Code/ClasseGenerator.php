@@ -22,7 +22,8 @@ class ClasseGenerator  extends CodeGenerator{
     protected array $use;
     protected bool $strict_type;
     protected string $output_path;
-    protected $main_class;
+    protected  ClassType $main_class;
+    protected  array $traits;
 
     public function __construct(
         string $name = "",
@@ -40,6 +41,7 @@ class ClasseGenerator  extends CodeGenerator{
         string $src = "",
         array $actions = [], 
         array $use = [], 
+        array $traits = [],
         bool $strict_type = false,
         string $namespace = "", 
         string $output_path=""
@@ -59,6 +61,7 @@ class ClasseGenerator  extends CodeGenerator{
         $this->strict_type = $strict_type;
         $this->namespace = $namespace;
         $this->output_path = $output_path;
+        $this->traits = $traits;
 
 
         $this->treat();
@@ -78,7 +81,8 @@ class ClasseGenerator  extends CodeGenerator{
             
         }else{
             if(!empty($this->name)){
-               $this->main_class =  $this->code->addClass($this->name);
+               $this->setNamespace();
+               
             }else{
                 //doit retourner une exception
                 throw new Exception('You must give a name for the class');
@@ -96,7 +100,7 @@ class ClasseGenerator  extends CodeGenerator{
         $this->setActions();
         $this->setUses();
         $this->setStrictType();
-        $this->setNamespace();
+        $this->setTraits();
         $this->generate($this->code);
 
 
@@ -123,10 +127,16 @@ class ClasseGenerator  extends CodeGenerator{
     }
 
     protected function setImplements(){
-
+            foreach ($this->implements as $key => $value) {
+                $this->main_class->addImplement($value);
+            }
     }
     protected function setConstants(){
-
+            // foreach ($this->constants as $key => $value) {
+                
+            //         $this->main_class->addConstant($key, $value);
+                
+            // }
     }
 
     protected function setProperty(){
@@ -141,6 +151,15 @@ class ClasseGenerator  extends CodeGenerator{
 
     }
     protected function setUses(){
+        foreach ($this->use as $key => $value) {
+            $this->code->addUse($value);
+        }
+
+    }
+    protected function setTraits(){
+        foreach ($this->traits as $key => $value) {
+            $this->main_class->addTrait($value);
+        }
 
     }
 
@@ -151,7 +170,15 @@ class ClasseGenerator  extends CodeGenerator{
     }
 
     protected function setNamespace(){
-        if(!empty($this->namespace)) $this->code->addNamespace($this->namespace);
+        if(!empty($this->namespace)){
+
+            $namespace  = $this->code->addNamespace($this->namespace);
+            $this->main_class = $namespace->addClass($this->name);
+           
+        }else{
+            $this->main_class = $this->code->addClass($this->name);
+        }
+        //  $this->code->addNamespace($this->namespace);
     }
 
 }

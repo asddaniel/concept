@@ -29,7 +29,15 @@ use App\Code\ClasseGenerator;
 // $exemple = new Exemple([1, 2, 3]);
 // var_dump($exemple->a);
 // $exemple->c = "alors";
-
-$classe = new ClasseGenerator(name:"Client", extends: "Bouari", output_path:"output/Client.php", visibility:["abstract", "readonly"]);
+$tab = ["pasteur", "ionic", "portable"=>52, "parapluie"];
+foreach ($tab as $key => $value) {
+    // echo $key.PHP_EOL;
+   if(is_int($key)){
+    // echo "entier-";
+   }else{
+    echo "chaine-";
+   }
+}
+$classe = new ClasseGenerator(name:"Client", use:["pop", "App\contract"], traits:["App\Models", "App\Http\Request"], constants: [ "portable"=>52, "parapluie"=>"oiy"], implements: ["Bouari", "portable"], output_path:"output/Client.php", visibility:["abstract", "readonly"]);
 // $classe->treat();
 ?>
