@@ -5,15 +5,21 @@ use Nette\PhpGenerator\Property;
 
 
 class PropertyGenerator extends CodeGenerator{
+    /*
+    @var visibility must be in protected, public, final, static, readonly, private
+
+    **/
     protected string $name;
     protected string $type;
     protected array $visibility;
     protected array $comments;
     protected string $code;
+    protected string $value;
 
     public function __construct(
         string $name, 
-        array $visibility,
+        array $visibility=[],
+        string $value = "",
         string $type="", 
         array $comments = []
         
@@ -22,6 +28,7 @@ class PropertyGenerator extends CodeGenerator{
         $this->type = $type;
         $this->visibility = $visibility;
         $this->comment = $comments;
+        $this->value = $value;
         $this->code = new Property($this->name);
         $this->treat();
 
@@ -29,10 +36,40 @@ class PropertyGenerator extends CodeGenerator{
 
     public function treat(){
         $this->setType();
+        $this->setVisibility();
     }
     protected function setType(){
         if(!empty($this->type)){
             $this->code->setType($this->type);
+        }
+    }
+
+    protected function setValue(){
+        if(!empty($this->value)){
+            $this->code->setValue($this->value);
+        }
+    }
+
+    protected function setVisibility(){
+        foreach ($this->visibility as $key => $value) {
+            switch ($value) {
+                case 'private':
+                    $this->code->setPrivate();
+                    break;
+                case 'protected':
+                    $this->code->setProtected();
+                    break;
+                case 'final':
+                    $this->code->setFinal();
+                    break;
+                case 'readonly':
+                    $this->code->setReadonly();
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
         }
     }
 }
