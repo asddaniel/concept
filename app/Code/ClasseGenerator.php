@@ -6,10 +6,15 @@ use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Literal;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\PhpFile;
+use Nette\InvalidStateException;
 
 class ClasseGenerator  extends CodeGenerator{
     protected string $namespace;
     protected  string $name;
+    /* 
+            @var visibility must containt abstract, final or Readonly or the three
+
+        **/
     protected array $visibility;
     protected string $extends ;
     protected array $implements; 
@@ -24,13 +29,11 @@ class ClasseGenerator  extends CodeGenerator{
     protected string $output_path;
     protected  ClassType $main_class;
     protected  array $traits;
+    protected array $removable;
 
     public function __construct(
         string $name = "",
-        /* 
-            @var visibility must containt abstract, final or Readonly or the three
-
-        **/
+        
         array $visibility = [],
         string $extends = "",
         array $implements = [], 
@@ -44,7 +47,8 @@ class ClasseGenerator  extends CodeGenerator{
         array $traits = [],
         bool $strict_type = false,
         string $namespace = "", 
-        string $output_path=""
+        string $output_path="",
+        array $removable= []
     )
     {
         $this->name = $name;
@@ -62,6 +66,7 @@ class ClasseGenerator  extends CodeGenerator{
         $this->namespace = $namespace;
         $this->output_path = $output_path;
         $this->traits = $traits;
+        $this->removable = $removable;
 
 
         $this->treat();
@@ -77,7 +82,7 @@ class ClasseGenerator  extends CodeGenerator{
             $class = $this->code->getClasses();
             $this->main_class = $class[array_key_first($class)];
             
-            $this->output_path = "output/Client.php";
+            // $this->output_path = "output/Client.php";
             
         }else{
             if(!empty($this->name)){
@@ -151,8 +156,12 @@ class ClasseGenerator  extends CodeGenerator{
     protected function setMethods(){
 
         foreach ($this->methods as $key => $value) {
-                
+          try {
             $this->main_class->addMember($value->get());
+          } catch (InvalidStateException $th) {
+            echo "erreur";
+          }   
+            
         
     }
 

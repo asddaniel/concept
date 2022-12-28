@@ -15,7 +15,7 @@ class MethodGenerator extends CodeGenerator{
     protected array $visibility;
     protected array $comments;
     protected string $literal;
-    protected string $src;
+    protected mixed $srcMethod;
     /* 
         @var parameters must be an array mixed of each parameters and their property
         eg. [ 
@@ -34,7 +34,7 @@ class MethodGenerator extends CodeGenerator{
         array $visibility=[],
         string $literal = "",
         string $type="", 
-        string $src= "",
+        mixed $srcMethod= "",
         array $comments = [],
         array $parameters = []
 
@@ -47,35 +47,29 @@ class MethodGenerator extends CodeGenerator{
     $this->literal = $literal;
     $this->code = new Method($this->name);
     $this->parameters = $parameters;
-    $this->src = $src;
+    $this->srcMethod = $srcMethod;
     $this->treat();
    }
 
    public function treat(){
-    $this->load();
+    $this->setSrcMethod();
     $this->setType();
     $this->setVisibility();
     $this->setParameters();
     $this->setLiteral();
     $this->addComment();
 }
-
-public function load(){
-    /*load from src
-
-    **/
-    if(!empty($this->src)){
-        $this->code = Method::from($this->src);
+protected function setSrcMethod(){
+    if(!empty($this->srcMethod)){
+        $this->code = $this->srcMethod;
     }
-    
 }
 
 
-   public function get(){
-    return $this->code;
-}
+   
 protected function setLiteral(){
     $this->code->addBody($this->literal);
+    
 }
 protected function setParameters(){
     foreach ($this->parameters as $key => $value) {

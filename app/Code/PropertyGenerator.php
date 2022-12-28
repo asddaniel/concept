@@ -40,9 +40,7 @@ class PropertyGenerator extends CodeGenerator{
         $this->setValue();
         $this->addComment();
     }
-    public function get(){
-        return $this->code;
-    }
+   
     protected function setType(){
         if(!empty($this->type)){
            

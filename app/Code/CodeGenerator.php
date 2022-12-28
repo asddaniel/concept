@@ -11,11 +11,15 @@ abstract class CodeGenerator {
     public abstract function treat();
 
     public function generate(){
-       
-            file_put_contents($this->output_path, $this->code);
+             if(!empty($this->output_path)){
+                file_put_contents($this->output_path, $this->code);
+             }
+            
         
     }
-
+    public function get(){
+        return $this->code;
+    }
     protected function addComment(){
      
         // $this->code = $this->code->setInitialized(true);
