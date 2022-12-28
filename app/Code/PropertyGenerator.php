@@ -6,14 +6,13 @@ use Nette\PhpGenerator\Property;
 
 class PropertyGenerator extends CodeGenerator{
     /*
-    @var visibility must be in protected, public, final, static, readonly, private
+    @var visibility must be in protected, public, static, readonly, private
 
     **/
     protected string $name;
     protected string $type;
     protected array $visibility;
     protected array $comments;
-    protected string $code;
     protected string $value;
 
     public function __construct(
@@ -27,7 +26,7 @@ class PropertyGenerator extends CodeGenerator{
         $this->name = $name;
         $this->type = $type;
         $this->visibility = $visibility;
-        $this->comment = $comments;
+        $this->comments = $comments;
         $this->value = $value;
         $this->code = new Property($this->name);
         $this->treat();
@@ -37,9 +36,15 @@ class PropertyGenerator extends CodeGenerator{
     public function treat(){
         $this->setType();
         $this->setVisibility();
+        $this->setValue();
+        $this->addComment();
+    }
+    public function get(){
+        return $this->code;
     }
     protected function setType(){
         if(!empty($this->type)){
+           
             $this->code->setType($this->type);
         }
     }
@@ -59,9 +64,7 @@ class PropertyGenerator extends CodeGenerator{
                 case 'protected':
                     $this->code->setProtected();
                     break;
-                case 'final':
-                    $this->code->setFinal();
-                    break;
+               
                 case 'readonly':
                     $this->code->setReadonly();
                     break;
@@ -71,6 +74,16 @@ class PropertyGenerator extends CodeGenerator{
                     break;
             }
         }
+    }
+
+    protected function addComment(){
+        if($this->code->isInitialized()){
+            // $this->code = $this->code->setInitialized(true);
+        foreach ($this->comments as $key => $value) {
+            echo $value;
+            $this->code->addComment($value);
+        }
+    }
     }
 }
 

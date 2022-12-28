@@ -132,14 +132,19 @@ class ClasseGenerator  extends CodeGenerator{
             }
     }
     protected function setConstants(){
-            // foreach ($this->constants as $key => $value) {
+            foreach ($this->constants as $key => $value) {
                 
-            //         $this->main_class->addConstant($key, $value);
+                    $this->main_class->addMember($value);
                 
-            // }
+            }
     }
 
     protected function setProperty(){
+        foreach ($this->property as $key => $value) {
+                
+            $this->main_class->addMember($value->get());
+        
+    }
 
     }
 

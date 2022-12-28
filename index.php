@@ -3,6 +3,7 @@ include("init.php");
 use app\Command\Command;
 use app\Domain\Exemple;
 use App\Code\ClasseGenerator;
+use App\Code\PropertyGenerator;
 // // $class = new Nette\PhpGenerator\ClassType('Demo');
 // $class = Nette\PhpGenerator\ClassType::fromCode(file_get_contents("app/Domain/Exemple.php", true));
 
@@ -38,6 +39,6 @@ foreach ($tab as $key => $value) {
     echo "chaine-";
    }
 }
-$classe = new ClasseGenerator(name:"Client", use:["pop", "App\contract"], traits:["App\Models", "App\Http\Request"], constants: [ "portable"=>52, "parapluie"=>"oiy"], implements: ["Bouari", "portable"], output_path:"output/Client.php", visibility:["abstract", "readonly"]);
+$classe = new ClasseGenerator(name:"Client", property:[new PropertyGenerator(name:"user", value:"fred", type:"string", comments:["hello"], visibility:["protected", "readonly"])], use:["pop", "App\contract"], traits:["App\Models", "App\Http\Request"], implements: ["Bouari", "portable"], output_path:"output/Client.php", visibility:["abstract", "readonly"]);
 // $classe->treat();
 ?>
