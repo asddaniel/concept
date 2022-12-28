@@ -5,6 +5,7 @@ abstract class CodeGenerator {
 
     protected $code;
     protected string $output_path;
+    protected array $comment = [];
     
 
     public abstract function treat();

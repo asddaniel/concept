@@ -87,7 +87,18 @@ class ClasseGenerator  extends CodeGenerator{
         }
       
         $this->setVisibility();
+        $this->addComment();
+        $this->setExtends();
+        $this->setImplements();
+        $this->setConstants();
+        $this->setProperty();
+        $this->setMethods();
+        $this->setActions();
+        $this->setUses();
+        $this->setStrictType();
+        $this->setNamespace();
         $this->generate($this->code);
+
 
     }
 
@@ -99,6 +110,48 @@ class ClasseGenerator  extends CodeGenerator{
             if($value=="Readonly" || $value =="readonly")   $this->main_class->setReadonly();
            
         }
+    }
+
+    protected function addComment(){
+        foreach ($this->comments as $key => $value) {
+            $this->main_class->addComment($value);
+        }
+    }
+
+    protected function setExtends(){
+        $this->main_class->setExtends($this->extends);
+    }
+
+    protected function setImplements(){
+
+    }
+    protected function setConstants(){
+
+    }
+
+    protected function setProperty(){
+
+    }
+
+    protected function setMethods(){
+
+    }
+
+    protected function setActions(){
+
+    }
+    protected function setUses(){
+
+    }
+
+    protected function setStrictType(){
+        if($this->strict_type){
+            $this->code->setStrictTypes();
+        }
+    }
+
+    protected function setNamespace(){
+        if(!empty($this->namespace)) $this->code->addNamespace($this->namespace);
     }
 
 }
