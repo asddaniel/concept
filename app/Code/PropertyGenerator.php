@@ -79,15 +79,7 @@ class PropertyGenerator extends CodeGenerator{
         }
     }
 
-    protected function addComment(){
-     
-            // $this->code = $this->code->setInitialized(true);
-        foreach ($this->comments as $key => $value) {
-            echo $value;
-            $this->code->addComment($value);
-        }
     
-    }
 }
 
 

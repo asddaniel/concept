@@ -15,6 +15,16 @@ abstract class CodeGenerator {
             file_put_contents($this->output_path, $this->code);
         
     }
+
+    protected function addComment(){
+     
+        // $this->code = $this->code->setInitialized(true);
+    foreach ($this->comments as $key => $value) {
+      
+        $this->code->addComment($value);
+    }
+
+}
 }
 
 
