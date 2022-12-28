@@ -30,6 +30,6 @@ use App\Code\ClasseGenerator;
 // var_dump($exemple->a);
 // $exemple->c = "alors";
 
-$classe = new ClasseGenerator(src:"src/Client.php");
-$classe->treat();
+$classe = new ClasseGenerator(name:"Client", output_path:"output/Client.php", visibility:["abstract", "readonly"]);
+// $classe->treat();
 ?>
