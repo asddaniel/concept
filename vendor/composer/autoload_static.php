@@ -7,16 +7,24 @@ namespace Composer\Autoload;
 class ComposerStaticInit37b7b79e505183cd5835d70a0e113399
 {
     public static $prefixLengthsPsr4 = array (
-        'a' => 
+        'P' => 
         array (
-            'app\\' => 4,
+            'PhpParser\\' => 10,
+        ),
+        'A' => 
+        array (
+            'App\\' => 4,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'app\\' => 
+        'PhpParser\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app',
+            0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
+        'App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/App',
         ),
     );
 

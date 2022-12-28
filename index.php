@@ -2,6 +2,7 @@
 include("init.php");
 use app\Command\Command;
 use app\Domain\Exemple;
+use App\Code\ClasseGenerator;
 // // $class = new Nette\PhpGenerator\ClassType('Demo');
 // $class = Nette\PhpGenerator\ClassType::fromCode(file_get_contents("app/Domain/Exemple.php", true));
 
@@ -21,12 +22,14 @@ use app\Domain\Exemple;
 // $commandes->setPrefix("");
 // $commandes->list = ["php --version", "java"];
 // $commandes->run();
-$cmd = new Command();
-$cmd->setSource("json/index.json");
-$cmd->run();
+// $cmd = new Command();
+// $cmd->setSource("json/index1.json");
+// $cmd->run();
 
 // $exemple = new Exemple([1, 2, 3]);
 // var_dump($exemple->a);
 // $exemple->c = "alors";
 
+$classe = new ClasseGenerator(src:"src/Client.php");
+$classe->treat();
 ?>
