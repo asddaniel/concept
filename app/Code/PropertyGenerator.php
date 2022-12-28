@@ -9,6 +9,7 @@ class PropertyGenerator extends CodeGenerator{
     @var visibility must be in protected, public, static, readonly, private
 
     **/
+    protected $allowed_visibility=["static", "readonly", "protected", "private"];
     protected string $name;
     protected string $type;
     protected array $visibility;
@@ -57,6 +58,7 @@ class PropertyGenerator extends CodeGenerator{
 
     protected function setVisibility(){
         foreach ($this->visibility as $key => $value) {
+            if(in_array($value, $this->allowed_visibility)){         
             switch ($value) {
                 case 'private':
                     $this->code->setPrivate();
@@ -74,16 +76,17 @@ class PropertyGenerator extends CodeGenerator{
                     break;
             }
         }
+        }
     }
 
     protected function addComment(){
-        if($this->code->isInitialized()){
+     
             // $this->code = $this->code->setInitialized(true);
         foreach ($this->comments as $key => $value) {
             echo $value;
             $this->code->addComment($value);
         }
-    }
+    
     }
 }
 

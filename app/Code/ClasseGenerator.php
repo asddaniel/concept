@@ -134,7 +134,7 @@ class ClasseGenerator  extends CodeGenerator{
     protected function setConstants(){
             foreach ($this->constants as $key => $value) {
                 
-                    $this->main_class->addMember($value);
+                    $this->main_class->addMember($value->get());
                 
             }
     }
