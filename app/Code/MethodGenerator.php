@@ -14,14 +14,29 @@ class MethodGenerator extends CodeGenerator{
     protected string $type;
     protected array $visibility;
     protected array $comments;
-    protected string $litteral;
+    protected string $literal;
+    protected string $src;
+    /* 
+        @var parameters must be an array mixed of each parameters and their property
+        eg. [ 
+            "params"=>[
+                'reference'=>true,
+                'type'=>'string',
+                'nullable'=>true, 
+
+            ]
+        ]
+    **/
+    protected array $parameters;
      
    public function __construct(
     string $name, 
         array $visibility=[],
-        string $litteral = "",
+        string $literal = "",
         string $type="", 
-        array $comments = []
+        string $src= "",
+        array $comments = [],
+        array $parameters = []
 
    ){
 
@@ -29,14 +44,70 @@ class MethodGenerator extends CodeGenerator{
     $this->type = $type;
     $this->visibility = $visibility;
     $this->comments = $comments;
-    $this->litteral = $vlitteral;
+    $this->literal = $literal;
     $this->code = new Method($this->name);
+    $this->parameters = $parameters;
+    $this->src = $src;
     $this->treat();
    }
+
+   public function treat(){
+    $this->load();
+    $this->setType();
+    $this->setVisibility();
+    $this->setParameters();
+    $this->setLiteral();
+    $this->addComment();
+}
+
+public function load(){
+    /*load from src
+
+    **/
+    if(!empty($this->src)){
+        $this->code = Method::from($this->src);
+    }
+    
+}
 
 
    public function get(){
     return $this->code;
+}
+protected function setLiteral(){
+    $this->code->addBody($this->literal);
+}
+protected function setParameters(){
+    foreach ($this->parameters as $key => $value) {
+        if(is_array($value)){
+            $this->addProperty_to_parameters($this->code->addParameter($key), $value);
+
+            
+        }else{
+            $this->code->addParameter($value);
+        }
+
+    }
+}
+
+private function addProperty_to_parameters(&$parameter, array $property){
+    foreach ($property as $cle => $valeur) {
+                 switch ($cle) {
+                    case 'reference':
+                        if($valeur) $parameter->setReference();
+                        break;
+                    case'type':
+                            $parameter->setType($valeur);
+                        break;
+                    case 'nullable':
+                            if($valeur) $parameter->setNullable();
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                 }
+    }
 }
 protected function setType(){
     if(!empty($this->type)){
@@ -61,6 +132,7 @@ protected function setVisibility(){
             case 'abstract':
                     $this->code->setAbstract();
                     break;
+           
             case 'protected':
                 $this->code->setProtected();
                 break;

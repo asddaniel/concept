@@ -150,6 +150,12 @@ class ClasseGenerator  extends CodeGenerator{
 
     protected function setMethods(){
 
+        foreach ($this->methods as $key => $value) {
+                
+            $this->main_class->addMember($value->get());
+        
+    }
+
     }
 
     protected function setActions(){
