@@ -8,6 +8,8 @@ class TemplateCodeGenerator {
 
     protected string $src;
     protected  $class;
+    protected $sourceCode;
+    protected $sourceFile;
 
     public function __construct(){
 
@@ -15,7 +17,7 @@ class TemplateCodeGenerator {
 
     protected function treatClass($class){
         
-        $this->class = new ClasseGenerator();
+        
         foreach ($class as $key => $value) {
            switch ($key) {
             case 'constants':
@@ -86,13 +88,28 @@ class TemplateCodeGenerator {
     public function loadFromJson($json){
           $data = json_decode($json);
     }
+    public function loadFromExistingCodeSrc($src){
+
+    }
     public function loadFromSrc($src){
-        $file = json_decode(file_get_contents($src));
-        $this->treatClass(serializeJson($file));
-        $this->generate();
+        $this->sourceFile= json_decode(file_get_contents($src));
+        
+        // $this->generate();
 
     }
     public function generate(){
+        $this->class = new ClasseGenerator();
+        
+        if(!empty($this->sourceCode)){
+            $this->class->set('src', $this->sourceCode);
+        }
+        if (!empty($this->sourceFile)) {
+            // $this->class = new ClasseGenerator();
+            $this->treatClass(serializeJson($this->sourceFile)); 
+        }else{
+            $this->class->treat();
+        }
+        
         echo "generation";
         $this->class->generate();
     }
