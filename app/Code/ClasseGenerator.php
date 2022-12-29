@@ -185,17 +185,17 @@ class ClasseGenerator  extends CodeGenerator{
     protected function setProperty(){
         foreach ($this->property as $key => $value) {
                 
-            $this->main_class->addMember($value->get());
+            $this->main_class->addMember($value);
         
     }
 
     }
 
     protected function setMethods(){
-
+       // var_dump($this->methods);
         foreach ($this->methods as $key => $value) {
           try {
-            $this->main_class->addMember($value->get());
+            $this->main_class->addMember($value);
           } catch (InvalidStateException $th) {
             echo "erreur";
           }   
@@ -231,8 +231,9 @@ class ClasseGenerator  extends CodeGenerator{
         }
     }
     protected function setUses(){
+        
         foreach ($this->use as $key => $value) {
-            $this->code->addUse($value);
+            $this->code->addUse(str_replace("/", "\\", $value));
         }
 
     }
@@ -252,7 +253,7 @@ class ClasseGenerator  extends CodeGenerator{
     protected function setNamespace(){
         if(!empty($this->namespace)){
 
-            $namespace  = $this->code->addNamespace($this->namespace);
+            $namespace  = $this->code->addNamespace(str_replace("/", "\\", $this->namespace));
             $this->main_class = $namespace->addClass($this->name);
            
         }else{

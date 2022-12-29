@@ -7,7 +7,7 @@ use Nette\PhpGenerator\ClassType;
 class TemplateCodeGenerator {
 
     protected string $src;
-    protected ClassType $class;
+    protected  $class;
 
     public function __construct(){
 
@@ -19,13 +19,20 @@ class TemplateCodeGenerator {
         foreach ($class as $key => $value) {
            switch ($key) {
             case 'constants':
-               $this->treatConstant($value);
+                foreach ($value as $cle => $valeur) {
+                    $this->treatConstant($valeur);
+                }
+               
                 break;
             case 'methods':
-                $this->treatMethod($value);
+                foreach ($value as $cle => $valeur) {
+                $this->treatMethod($valeur);
+                }
                 break;
             case 'property':
-                $this->treatProperty($value);
+            foreach ($value as $cle => $valeur) {
+                $this->treatProperty($cle, $valeur);
+            }
                 break;
             
             default: $this->class->set($key, $value);
@@ -33,6 +40,7 @@ class TemplateCodeGenerator {
                 break;
            } 
         }
+        $this->class->treat();
     }
    
     protected function treatConstant($constant){
@@ -47,24 +55,28 @@ class TemplateCodeGenerator {
     }
 
     protected function treatMethod($method){
-        $method = new MethodGenerator($method["name"]);
+        
+        $main_method = new MethodGenerator($method["name"]);
         foreach ($method as $cle => $valeur) {
-           $method->set($cle, $valeur);
+            
+           $main_method->set($cle, $valeur);
         }
         if(!empty($method)){
-            $method->treat();
-            $this->class->addMethod($method->get());
+            // print_r($main_method);
+            $main_method->treat();
+            $this->class->addMethod($main_method->get());
         }
     }
 
-    protected function treatProperty($property){
-        $property = new PropertyGenerator($property["name"]);
+    protected function treatProperty($name, $property){
+        
+        $mainproperty = new PropertyGenerator($name);
         foreach ($property as $cle => $valeur) {
-           $property->set($cle, $valeur);
+           $mainproperty->set($cle, $valeur);
         }
         if(!empty($property)){
-            $property->treat();
-            $this->class->addProperty($property->get());
+            $mainproperty->treat();
+            $this->class->addProperty($mainproperty->get());
         }
     }
 
@@ -76,7 +88,13 @@ class TemplateCodeGenerator {
     }
     public function loadFromSrc($src){
         $file = json_decode(file_get_contents($src));
+        $this->treatClass(serializeJson($file));
+        $this->generate();
 
+    }
+    public function generate(){
+        echo "generation";
+        $this->class->generate();
     }
 }
 

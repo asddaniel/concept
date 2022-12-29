@@ -16,7 +16,7 @@ function serializeJson($json){
    foreach ($json as $key => $value) {
     if(is_object($value)){
         $array[$key] = serializeJson((array)$value);
-        echo"ok";
+       
     }elseif(is_array($value)){
         $array[$key] = serializeJson($value);
     }else{

@@ -51,18 +51,20 @@ class MethodGenerator extends CodeGenerator{
     $this->parameters = $parameters;
     $this->srcMethod = $srcMethod;
     $this->removable_parameters = $removable_parameters;
+    
     // $this->treat();
    }
 
    public function treat(){
-    
+     
     $this->setSrcMethod();
     $this->setActions();
     $this->setType();
     $this->setVisibility();
     $this->setParameters();
     $this->setLiteral();
-    $this->addComment();
+    
+    $this->setComment();
 }
 protected function setSrcMethod(){
     if(!empty($this->srcMethod)){
@@ -71,18 +73,22 @@ protected function setSrcMethod(){
 }
 
 
+
    protected function setActions(){
       foreach ($this->removable_parameters as $key => $value) {
         $this->code->removeParameter($value);
       }
    }
 protected function setLiteral(){
+    
     $this->code->addBody($this->literal);
     
 }
 protected function setParameters(){
+    
     foreach ($this->parameters as $key => $value) {
         if(is_array($value)){
+            
             $this->addProperty_to_parameters($this->code->addParameter($key), $value);
 
             
@@ -93,14 +99,16 @@ protected function setParameters(){
     }
 }
 
-private function addProperty_to_parameters(&$parameter, array $property){
+private function addProperty_to_parameters($parameter, array $property){
+   
     foreach ($property as $cle => $valeur) {
                  switch ($cle) {
                     case 'reference':
                         if($valeur) $parameter->setReference();
                         break;
                     case'type':
-                            $parameter->setType($valeur);
+                        
+                        $parameter->setType($valeur);
                         break;
                     case 'nullable':
                             if($valeur) $parameter->setNullable();

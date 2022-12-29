@@ -17,16 +17,22 @@ abstract class CodeGenerator {
             
         
     }
+    protected function setComment(){
+   
+        foreach ($this->comments as $key => $value) {
+            $this->code->addComment($value);
+        }
+    }
    
     public function set($property, $value){
         if(property_exists($this, $property)){
-            $this->property = $value;
+            $this->$property = $value;
         }
     }
     public function get(){
         return $this->code;
     }
-    protected function addComment(){
+    protected function addComment( string $comment){
      
         // $this->code = $this->code->setInitialized(true);
     foreach ($this->comments as $key => $value) {

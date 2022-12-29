@@ -38,7 +38,7 @@ class PropertyGenerator extends CodeGenerator{
         $this->setType();
         $this->setVisibility();
         $this->setValue();
-        $this->addComment();
+        $this->setComment();
     }
    
     protected function setType(){
