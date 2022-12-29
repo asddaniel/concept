@@ -32,6 +32,7 @@ class ClasseGenerator  extends CodeGenerator{
     protected string $output_path;
     protected  ClassType $main_class;
     protected  array $traits;
+    protected PhpNamespace $mainNamespace;
     /*
     @var removable array associative with three key 
     eg. $removable = [
@@ -174,10 +175,13 @@ class ClasseGenerator  extends CodeGenerator{
                 $this->main_class->addImplement($value);
             }
     }
+    public function addConst_reference( string $name){
+        return $this->main_class->addConstant($name);
+    }
     protected function setConstants(){
             foreach ($this->constants as $key => $value) {
                 
-                    $this->main_class->addMember($value->get());
+                    $this->main_class->addMember($value);
                 
             }
     }
@@ -233,7 +237,7 @@ class ClasseGenerator  extends CodeGenerator{
     protected function setUses(){
         
         foreach ($this->use as $key => $value) {
-            $this->code->addUse(str_replace("/", "\\", $value));
+            $this->mainNamespace->addUse(str_replace("/", "\\", $value));
         }
 
     }
@@ -252,9 +256,12 @@ class ClasseGenerator  extends CodeGenerator{
 
     protected function setNamespace(){
         if(!empty($this->namespace)){
-
-            $namespace  = $this->code->addNamespace(str_replace("/", "\\", $this->namespace));
-            $this->main_class = $namespace->addClass($this->name);
+            // $namespace = new PhpNamespace('Foo');
+            //  echo"oool";
+            
+            $this->mainNamespace  = $this->code->addNamespace(str_replace("/", "\\", $this->namespace));
+            $this->main_class = $this->mainNamespace->addClass($this->name);
+            
            
         }else{
             $this->main_class = $this->code->addClass($this->name);

@@ -20,7 +20,7 @@ class TemplateCodeGenerator {
            switch ($key) {
             case 'constants':
                 foreach ($value as $cle => $valeur) {
-                    $this->treatConstant($valeur);
+                    $this->treatConstant($cle, $valeur);
                 }
                
                 break;
@@ -43,14 +43,14 @@ class TemplateCodeGenerator {
         $this->class->treat();
     }
    
-    protected function treatConstant($constant){
-        $constant = new ConstantGenerator($constant["name"]);
+    protected function treatConstant($name, $constant){
+        $mainconstant = new ConstantGenerator($name);
         foreach ($constant as $cle => $valeur) {
-           $constant->set($cle, $valeur);
+           $mainconstant->set($cle, $valeur);
         }
         if(!empty($constant)){
-            $constant->treat();
-            $this->class->addConstant($constant->get());
+            $mainconstant->treat();
+            $this->class->addConstant($mainconstant->get());
         }
     }
 
