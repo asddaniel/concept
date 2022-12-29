@@ -7,6 +7,9 @@ use Nette\PhpGenerator\Literal;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\PhpFile;
 use Nette\InvalidStateException;
+use Nette\PhpGenerator\Constant;
+use Nette\PhpGenerator\Method;
+use Nette\PhpGenerator\Property;
 
 class ClasseGenerator  extends CodeGenerator{
     protected string $namespace;
@@ -106,7 +109,7 @@ class ClasseGenerator  extends CodeGenerator{
         }
         $this->setActions();
         $this->setVisibility();
-        $this->addComment();
+        $this->setComment();
         $this->setExtends();
         $this->setImplements();
         $this->setConstants();
@@ -131,9 +134,34 @@ class ClasseGenerator  extends CodeGenerator{
         }
     }
 
-    protected function addComment(){
+    protected function setComment(){
         foreach ($this->comments as $key => $value) {
             $this->main_class->addComment($value);
+        }
+    }
+    
+    public function addComment( string $comment){
+        
+            $this->main_class->addComment($comment);
+        
+    }
+
+    public function addConstant(Constant $const){
+        array_push($this->constants, $const);
+    }
+
+    public function addMethod(Method $method){
+        array_push($this->methods, $method);
+    }
+
+    public function addProperty(Property $property){
+        array_push($this->property, $property);
+    }
+
+    public function set($property, $value){
+        $array_forbid = ["methods", "constants", "property"];
+        if(!in_array($property, $array_forbid)){
+            parent::set($property, $value);
         }
     }
 

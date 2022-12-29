@@ -11,6 +11,21 @@ function  commande(String $commande){
     return $data;
 }
 
+function serializeJson($json){
+   $array = [];
+   foreach ($json as $key => $value) {
+    if(is_object($value)){
+        $array[$key] = serializeJson((array)$value);
+        echo"ok";
+    }elseif(is_array($value)){
+        $array[$key] = serializeJson($value);
+    }else{
+        $array[$key] = $value;
+    }
+   }
+   return $array;
+}
+
 function execute($valeur){
     $output=null;
     $retval=null;

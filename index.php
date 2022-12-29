@@ -42,8 +42,9 @@ foreach ($tab as $key => $value) {
     echo "chaine-";
    }
 }
-$data = (array)json_decode(file_get_contents("json/index.json"));
-var_dump($data);
+$data = serializeJson((array)json_decode(file_get_contents("json/index.json")));
+
+print_r($data);
 // $classe = new ClasseGenerator(name:"Client", src:"output/test.php", methods:[new MethodGenerator(name: "participer", removable_parameters:['value'], srcMethod:$method, literal:"return view('accueil');", visibility:['protected', 'static'])], constants:[new ConstantGenerator(name:"euler", value:45, visibility:["static", "private"], comments:["method"])], property:[new PropertyGenerator(name:"user", value:"fred", type:"string", comments:["hello"], visibility:["protected", "readonly"])], use:["pop", "App\contract"], traits:["App\Models", "App\Http\Request"], implements: ["Bouari", "portable"], output_path:"output/Client.php", visibility:["abstract", "readonly"]);
 // $classe->treat();
 ?>

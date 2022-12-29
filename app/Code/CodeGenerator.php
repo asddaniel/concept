@@ -17,11 +17,12 @@ abstract class CodeGenerator {
             
         
     }
-    public function __set($property, $value){
+   
+    public function set($property, $value){
         if(property_exists($this, $property)){
-          $this->$property = $value;
+            $this->property = $value;
         }
-  }
+    }
     public function get(){
         return $this->code;
     }
