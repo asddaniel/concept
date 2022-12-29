@@ -6,6 +6,7 @@ use App\Code\ClasseGenerator;
 use App\Code\PropertyGenerator;
 use App\Code\ConstantGenerator;
 use App\Code\MethodGenerator;
+use App\Code\TemplateCodeGenerator;
 // // $class = new Nette\PhpGenerator\ClassType('Demo');
 $class = Nette\PhpGenerator\ClassType::fromCode(file_get_contents("app/Domain/Exemple.php", true));
 $method = $class->getMethod('__set')->cloneWithName("__set");
@@ -41,6 +42,8 @@ foreach ($tab as $key => $value) {
     echo "chaine-";
    }
 }
-$classe = new ClasseGenerator(name:"Client", src:"output/test.php", methods:[new MethodGenerator(name: "participer", srcMethod:$method, literal:"return view('accueil');", visibility:['protected', 'static'])], constants:[new ConstantGenerator(name:"euler", value:45, visibility:["static", "private"], comments:["method"])], property:[new PropertyGenerator(name:"user", value:"fred", type:"string", comments:["hello"], visibility:["protected", "readonly"])], use:["pop", "App\contract"], traits:["App\Models", "App\Http\Request"], implements: ["Bouari", "portable"], output_path:"output/Client.php", visibility:["abstract", "readonly"]);
+$data = (array)json_decode(file_get_contents("json/index.json"));
+var_dump($data);
+// $classe = new ClasseGenerator(name:"Client", src:"output/test.php", methods:[new MethodGenerator(name: "participer", removable_parameters:['value'], srcMethod:$method, literal:"return view('accueil');", visibility:['protected', 'static'])], constants:[new ConstantGenerator(name:"euler", value:45, visibility:["static", "private"], comments:["method"])], property:[new PropertyGenerator(name:"user", value:"fred", type:"string", comments:["hello"], visibility:["protected", "readonly"])], use:["pop", "App\contract"], traits:["App\Models", "App\Http\Request"], implements: ["Bouari", "portable"], output_path:"output/Client.php", visibility:["abstract", "readonly"]);
 // $classe->treat();
 ?>

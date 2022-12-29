@@ -20,7 +20,7 @@ class ConstantGenerator extends PropertyGenerator{
         $this->comments = $comments;
         $this->value = $value;
         $this->code = new Constant($this->name);
-        $this->treat();
+        // $this->treat();
 
     }
 }

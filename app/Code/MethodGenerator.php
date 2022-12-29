@@ -28,6 +28,7 @@ class MethodGenerator extends CodeGenerator{
         ]
     **/
     protected array $parameters;
+    protected array $removable_parameters;
      
    public function __construct(
     string $name, 
@@ -36,7 +37,8 @@ class MethodGenerator extends CodeGenerator{
         string $type="", 
         mixed $srcMethod= "",
         array $comments = [],
-        array $parameters = []
+        array $parameters = [],
+        array $removable_parameters = []
 
    ){
 
@@ -48,11 +50,14 @@ class MethodGenerator extends CodeGenerator{
     $this->code = new Method($this->name);
     $this->parameters = $parameters;
     $this->srcMethod = $srcMethod;
-    $this->treat();
+    $this->removable_parameters = $removable_parameters;
+    // $this->treat();
    }
 
    public function treat(){
+    
     $this->setSrcMethod();
+    $this->setActions();
     $this->setType();
     $this->setVisibility();
     $this->setParameters();
@@ -66,7 +71,11 @@ protected function setSrcMethod(){
 }
 
 
-   
+   protected function setActions(){
+      foreach ($this->removable_parameters as $key => $value) {
+        $this->code->removeParameter($value);
+      }
+   }
 protected function setLiteral(){
     $this->code->addBody($this->literal);
     

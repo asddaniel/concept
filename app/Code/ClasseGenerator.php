@@ -29,6 +29,15 @@ class ClasseGenerator  extends CodeGenerator{
     protected string $output_path;
     protected  ClassType $main_class;
     protected  array $traits;
+    /*
+    @var removable array associative with three key 
+    eg. $removable = [
+        "property"=>["fillable", "time"],
+        "methods"=>["store", "create"],
+        "const"=>["limit", "euler"]
+    ]
+
+    **/
     protected array $removable;
 
     public function __construct(
@@ -69,10 +78,11 @@ class ClasseGenerator  extends CodeGenerator{
         $this->removable = $removable;
 
 
-        $this->treat();
+        // $this->treat();
 
 
     }
+   
 
     public function treat(){
         $this->code = new PhpFile();
@@ -94,7 +104,7 @@ class ClasseGenerator  extends CodeGenerator{
                 return 'impossible de crée une classe sans nom';
             }
         }
-      
+        $this->setActions();
         $this->setVisibility();
         $this->addComment();
         $this->setExtends();
@@ -106,7 +116,7 @@ class ClasseGenerator  extends CodeGenerator{
         $this->setUses();
         $this->setStrictType();
         $this->setTraits();
-        $this->generate($this->code);
+        // $this->generate($this->code);
 
 
     }
@@ -168,7 +178,29 @@ class ClasseGenerator  extends CodeGenerator{
     }
 
     protected function setActions(){
-
+        foreach ($this->removable as $key => $value) {
+           switch ($key) {
+            case 'property':
+                foreach ($value as $cle => $valeur) {
+                    $this->main_class->removeProperty($valeur);
+                }
+                break;
+            case 'methods':
+                    foreach ($value as $cle => $valeur) {
+                        $this->main_class->removeMethod($valeur);
+                    }
+                    break;
+            case 'const':
+                        foreach ($value as $cle => $valeur) {
+                            $this->main_class->removeConstant($valeur);
+                        }
+                    break;
+            
+            default:
+                # code...
+                break;
+           }
+        }
     }
     protected function setUses(){
         foreach ($this->use as $key => $value) {

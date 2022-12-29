@@ -30,7 +30,7 @@ class PropertyGenerator extends CodeGenerator{
         $this->comments = $comments;
         $this->value = $value;
         $this->code = new Property($this->name);
-        $this->treat();
+        // $this->treat();
 
     }
 
