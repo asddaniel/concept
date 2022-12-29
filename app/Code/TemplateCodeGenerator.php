@@ -89,7 +89,7 @@ class TemplateCodeGenerator {
           $data = json_decode($json);
     }
     public function loadFromExistingCodeSrc($src){
-
+         $this->sourceCode = file_get_contents($src);
     }
     public function loadFromSrc($src){
         $this->sourceFile= json_decode(file_get_contents($src));

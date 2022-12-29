@@ -96,6 +96,10 @@ class Command{
         return system($commande);
     }
 
+    public static function exec($commande){
+        return exec($commande);
+    }
+
     public function setSource(string $path){
        
         $this->source = $path;

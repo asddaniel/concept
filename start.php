@@ -1,9 +1,9 @@
 <?php
-require "init.php";
+// require_ "init.php";
 
 use App\Command\Kernel;
 
-Kernel::register("TemplateAppGenerator");
+Kernel::register("App\Code\LaravelTemplateGenerator");
 
 
 ?>

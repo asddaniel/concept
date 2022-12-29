@@ -1,6 +1,7 @@
 <?php  
 
 include("init.php");
+require("start.php");
 use App\Command\Kernel;
 
 if(count($argv)>1){

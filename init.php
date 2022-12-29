@@ -4,7 +4,7 @@ session_start();
 
 require 'vendor/autoload.php';
 
-
+$GLOBALS["command"]=[];
 
 function  commande(String $commande){
     $data =  system($commande, $retour);
