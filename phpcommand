@@ -1,7 +1,7 @@
 <?php  
 
 include("init.php");
-
+use App\Command\Kernel;
 
 if(count($argv)>1){
     $data = "";
@@ -10,7 +10,8 @@ if(count($argv)>1){
 
         $data = $data.' '.$argv[$i];
     }
-    commande($data);
+    Kernel::execute($data);
+    // commande($data);
 }else{
     print("type help for help");
 }
