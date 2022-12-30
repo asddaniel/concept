@@ -8,14 +8,18 @@ class TemplateCodeGenerator {
 
     protected string $src;
     protected  $class;
+    /*
+        lien ou path to the src code
+    **/
     protected $sourceCode;
     protected $sourceFile;
 
-    public function __construct(){
-
+    public function __construct($sourceCode = [], $sourceFile = ""){
+          $this->sourceCode = $sourceCode;
+          $this->sourceFile = $sourceFile;
     }
 
-    protected function treatClass($class){
+    public function treatClass($class){
         
         
         foreach ($class as $key => $value) {
@@ -32,7 +36,9 @@ class TemplateCodeGenerator {
                 }
                 break;
             case 'property':
+                
             foreach ($value as $cle => $valeur) {
+               
                 $this->treatProperty($cle, $valeur);
             }
                 break;
@@ -74,10 +80,12 @@ class TemplateCodeGenerator {
         
         $mainproperty = new PropertyGenerator($name);
         foreach ($property as $cle => $valeur) {
+            //  print_r($value);
            $mainproperty->set($cle, $valeur);
         }
         if(!empty($property)){
             $mainproperty->treat();
+            // var_dump($this->class);
             $this->class->addProperty($mainproperty->get());
         }
     }
@@ -86,10 +94,11 @@ class TemplateCodeGenerator {
     
     
     public function loadFromJson($json){
-          $data = json_decode($json);
+          $this->sourceFile = json_decode($json);
+         
     }
     public function loadFromExistingCodeSrc($src){
-         $this->sourceCode = file_get_contents($src);
+         $this->sourceCode = $src;
     }
     public function loadFromSrc($src){
         $this->sourceFile= json_decode(file_get_contents($src));
@@ -99,7 +108,7 @@ class TemplateCodeGenerator {
     }
     public function generate(){
         $this->class = new ClasseGenerator();
-        
+        // var_dump($this->sourceFile);
         if(!empty($this->sourceCode)){
             $this->class->set('src', $this->sourceCode);
         }

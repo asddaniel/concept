@@ -80,7 +80,7 @@ class ClasseGenerator  extends CodeGenerator{
         $this->output_path = $output_path;
         $this->traits = $traits;
         $this->removable = $removable;
-
+        
 
         // $this->treat();
 
@@ -108,6 +108,7 @@ class ClasseGenerator  extends CodeGenerator{
                 return 'impossible de crée une classe sans nom';
             }
         }
+        
         $this->setActions();
         $this->setVisibility();
         $this->setComment();
@@ -156,6 +157,7 @@ class ClasseGenerator  extends CodeGenerator{
     }
 
     public function addProperty(Property $property){
+        // print_r($property);
         array_push($this->property, $property);
     }
 
@@ -179,6 +181,7 @@ class ClasseGenerator  extends CodeGenerator{
         return $this->main_class->addConstant($name);
     }
     protected function setConstants(){
+        
             foreach ($this->constants as $key => $value) {
                 
                     $this->main_class->addMember($value);
@@ -187,16 +190,18 @@ class ClasseGenerator  extends CodeGenerator{
     }
 
     protected function setProperty(){
+        // print_r($this->main_class);
         foreach ($this->property as $key => $value) {
-                
-            $this->main_class->addMember($value);
+            // print_r($value);
+             $this->main_class->removeProperty($value->getName());
+             $this->main_class->addMember($value);
         
     }
 
     }
 
     protected function setMethods(){
-       // var_dump($this->methods);
+        // var_dump($this->methods);
         foreach ($this->methods as $key => $value) {
           try {
             $this->main_class->addMember($value);

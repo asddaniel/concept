@@ -7,11 +7,11 @@ abstract class TemplateAppGenerator implements TemplateAppContract{
     public const command = "App";
     protected array $codes;
     protected array $sources = [];
-    protected array $command_list = [];
+    protected array $commandList = [];
     protected string $output_dir;
     protected array $startCommands= [];
-    protected array $property;
-    protected array $attributes;
+    protected array $property = [];
+    protected array $attributes = [];
     public function generate(){
        foreach ($this->codes as $key => $value) {
         $value->generate();
@@ -21,9 +21,13 @@ abstract class TemplateAppGenerator implements TemplateAppContract{
     protected function addSource($path){
        array_push($this->sources, $path);
     }
-    // public function execute(){
+    public function runCommand(){
+      foreach ($this->commandList as $key => $value) {
+         echo $value;
+         exec($value);
+      }
 
-    // }
+    }
 
 
 }

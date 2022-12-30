@@ -14,7 +14,7 @@ class PropertyGenerator extends CodeGenerator{
     protected string $type;
     protected array $visibility;
     protected array $comments;
-    protected string $value;
+    protected  $value;
 
     public function __construct(
         string $name, 
@@ -30,6 +30,7 @@ class PropertyGenerator extends CodeGenerator{
         $this->comments = $comments;
         $this->value = $value;
         $this->code = new Property($this->name);
+         
         // $this->treat();
 
     }
@@ -49,6 +50,7 @@ class PropertyGenerator extends CodeGenerator{
     }
 
     protected function setValue(){
+        // print_r($this->value);
         if(!empty($this->value)){
             $this->code->setValue($this->value);
         }
