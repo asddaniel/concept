@@ -109,9 +109,12 @@ class TemplateCodeGenerator {
     public function generate(){
         $this->class = new ClasseGenerator();
         // var_dump($this->sourceFile);
+        // echo " generation ";
         if(!empty($this->sourceCode)){
+            
             $this->class->set('src', $this->sourceCode);
         }
+        
         if (!empty($this->sourceFile)) {
             // $this->class = new ClasseGenerator();
             $this->treatClass(serializeJson($this->sourceFile)); 
@@ -119,7 +122,7 @@ class TemplateCodeGenerator {
             $this->class->treat();
         }
         
-        echo "generation";
+        
         $this->class->generate();
     }
 }

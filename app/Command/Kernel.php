@@ -20,11 +20,12 @@ public static function register(string $command){
 }
 
 public static function execute($instruction){
+    echo "commande reçu";
     foreach ($GLOBALS["command"] as $key => $value) {
         $app = new $value();
         $app->execute();
     }
-    echo "commande received";
+    
 }
 
 }

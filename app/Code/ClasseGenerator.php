@@ -204,9 +204,11 @@ class ClasseGenerator  extends CodeGenerator{
         // var_dump($this->methods);
         foreach ($this->methods as $key => $value) {
           try {
+            // echo $value;
+            $this->main_class->removeMethod($value->getName());
             $this->main_class->addMember($value);
           } catch (InvalidStateException $th) {
-            echo "erreur";
+            echo " erreur impossible de crée la méthode $th";
           }   
             
         
