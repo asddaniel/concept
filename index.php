@@ -7,9 +7,26 @@ use App\Code\PropertyGenerator;
 use App\Code\ConstantGenerator;
 use App\Code\MethodGenerator;
 use App\Code\TemplateCodeGenerator;
+use Nette\PhpGenerator\PhpFile;
+use Nette\PhpGenerator\Literal;
 // // $class = new Nette\PhpGenerator\ClassType('Demo');
 $class = Nette\PhpGenerator\ClassType::fromCode(file_get_contents("app/Domain/Exemple.php", true));
 $method = $class->getMethod('__set')->cloneWithName("__set");
+$code = PhpFile::fromCode(file_get_contents("output1/routes/web.php"), "eeef");
+// $code = new PhpFile();
+$code->addUse("Illuminate\Support\Facades\Route");
+$code->addUse("Illuminate\Support\Facades\Helpers");
+//$code->setStrictTypes(); // adds declare(strict_types=1)
+
+// $class = $code->addClass('Foo\A');
+//  $function = $code->addFunction('Foo\foo');
+// $literral = new Literal("trucmashin");
+$ajout = "
+Route::get('/', function () {
+    return view('welcome');
+});
+";
+ echo $code.$ajout.$ajout;
 // $class->setFinal()
 // 	->setExtends(ParentClass::class)
 // 	->addImplement(Countable::class)

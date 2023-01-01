@@ -23,7 +23,8 @@ abstract class TemplateAppGenerator implements TemplateAppContract{
     }
     public function runCommand(){
       foreach ($this->commandList as $key => $value) {
-         echo $value;
+         //   echo $value;
+           
          exec($value);
       }
 

@@ -1,7 +1,8 @@
 <?php
-namespace App\Code;
+namespace App\Code\Templates\Laravel;
 
 use App\Contract\TemplateAppContract;
+use App\Code\TemplateAppGenerator;
 
 class LaravelTemplateGenerator extends TemplateAppGenerator 
 {
@@ -10,17 +11,17 @@ protected array $models = [];
 protected array $attributes = [];
 protected array $classRequestList = [];
 protected array $classControllerList = [];
+protected array $routeList = [];
 
   public function loadSrc($json){
     $json = serializeJson(json_decode(file_get_contents($json)));
-    // var_dump($json);
-    // die;
+    
     $this->output_dir = $json["output_dir"];
-
+    $this->creationCommand();
     //ajout des commandes de création des modèles 
     foreach ($json["models"] as $key => $value) {
         $this->addCommand("php ".$this->output_dir."/artisan make:model ".$key." --all ");
-        // $this->prepareModel($value);
+       
     }
     if(array_key_exists("models", $json)){
       $this->prepareModel($json["models"]);
@@ -98,6 +99,21 @@ protected array $classControllerList = [];
         // var_dump($this->models);
       }
   }
+  protected function createRoute(){
+    $route = new PhpFileGenerator(output_path:$this->output_dir."/routes/api.php");
+    $route->loadFromFile(file_get_contents($this->output_dir."/routes/api.php"));
+    foreach ($this->models as $key => $value) {
+      $route->addUse("App\Http\Controllers\\".$value["name"]."Controller");
+      $route->addLine("Route::resource('".$value['name']."', ".$value["name"]."Controller::class)->except(['create', 'edit']);");
+      
+    }
+    echo "
+    géneration des routes
+    ";
+    $route->generate();
+   
+
+  }
   protected function createModel(){
     foreach ($this->models as $key => $value) {
       $this->generateClass("App/Models", $value);
@@ -114,8 +130,7 @@ protected array $classControllerList = [];
      $code->loadFromExistingCodeSrc($this->output_dir."/".$path."/".$class["name"].".php");
      
      $code->loadFromJson(json_encode($class));
-    //  echo" ttttok  ";
-    //  $code->generate($value);
+    
      $code->generate();
 
   }
@@ -127,8 +142,8 @@ protected array $classControllerList = [];
 
   }
   protected function finalCommande(){
-    array_push($this->commandList, "php ".$this->output_dir."/artisan migrate ");
-    array_push($this->commandList, "php ".$this->output_dir."/artisan serve ");
+    // array_push($this->commandList, "php ".$this->output_dir."/artisan migrate ");
+    array_push($this->commandList, " php ".$this->output_dir."/artisan serve ");
 
   }
   protected function creationCommand(){
@@ -137,11 +152,15 @@ protected array $classControllerList = [];
   }
 
   public function execute(){
+    
       $this->loadSrc("json/laravelTest.json");
-      // $this->creationCommand();
-      // $this->runCommand();
+     
+      // $this->finalCommande();
+    
+      $this->runCommand();
       $this->createModel();
       $this->createRequest();
+      $this->createRoute();
   }
 
 

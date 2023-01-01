@@ -13,7 +13,7 @@ set var2=php
 @Echo OFF
  
 
-SET /p arguments= Bienvenue dans la CLR concept entrer une commande pour demarrer:
+SET /p arguments= Bienvenue dans la CLR concept entrer une commande pour demarrer : 
 echo %arguments%
 
 if %variable%==%var1% python pycommand %arguments%
