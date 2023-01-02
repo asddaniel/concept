@@ -7,7 +7,6 @@ class Command{
     protected string $source;
     protected string $prefix = "";
     protected array $list = [];
-    protected string $target_dir;
     protected string $description;
     protected string $tag;
     public  array  $childProcess = [];
@@ -18,12 +17,12 @@ class Command{
     ];
 
     public function __construct( String $type="standard", String  $source="", String $prefix="",
-    array $list=[], string $target_dir="output", string $description="", string $tag="", array $childProcess=[]){
+    array $list=[], string $description="", string $tag="", array $childProcess=[]){
         $this->source = $source;
         $this->type = $type;
         $this->prefix = $prefix;
         $this->list = $list;
-        $this->target_dir = $target_dir;
+        
         $this->description = $description;
         $this->tag = $tag;
         $this->childProcess = $childProcess;
@@ -42,9 +41,7 @@ class Command{
              $this->$property = $value;
          }
     }
-    public function set_target_dir($dir){
-        $this->target_dir = $dir;
-    }
+   
     public function setPrefix(string $prefix){
         $this->prefix = $prefix;
     }
@@ -58,10 +55,7 @@ class Command{
 
     public function run():void   
     {
-        if(strlen($this->target_dir)>0){
-            $this->makedir($this->target_dir);
-        }
-       
+        
 
        $this->run_main_commands();
        $this->run_child();
@@ -74,7 +68,7 @@ class Command{
             
             foreach ($this->list as $key => $value) {
                
-            $array =    $this->commande(($this->prefix??"php ").$value);
+            $this->commande($this->prefix.$value);
                
             }
            
@@ -143,9 +137,9 @@ class Command{
     public function has_object_in(array $array){
         
            foreach ($array as $key => $value) {
-            // echo gettype($value)."---";
+           
             if(gettype($value)=="object"){
-                // echo "objetrouvé";
+               
                  return true;
             }
            }

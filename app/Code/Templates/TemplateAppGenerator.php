@@ -1,10 +1,11 @@
 <?php
-namespace App\Code;
+namespace App\Code\Templates;
 use App\Contract\TemplateAppContract;
 
 abstract class TemplateAppGenerator implements TemplateAppContract{
 
-    public const command = "App";
+    protected const command = "App";
+    
     protected array $codes;
     protected array $sources = [];
     protected array $commandList = [];
@@ -16,6 +17,10 @@ abstract class TemplateAppGenerator implements TemplateAppContract{
        foreach ($this->codes as $key => $value) {
         $value->generate();
        }
+    }
+
+    public function get_start_cmd(){
+       return $this::command;
     }
      
     protected function addSource($path){

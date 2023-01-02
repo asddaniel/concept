@@ -8,10 +8,12 @@ class Kernel{
 
     protected array $commandList = [];
 
-    public function __construct($commandList = []){
-        $GLOBALS["command"] = [];
-        $this->commandList = $GLOBALS["command"];
-    }
+    
+
+protected  array $directive = [
+    "create",
+    "run"
+];
 
 public static function register(string $command){
 
@@ -19,11 +21,26 @@ public static function register(string $command){
   array_push($GLOBALS["command"], $command);
 }
 
+
+
 public static function execute($instruction){
-    echo "commande reçu";
+   $time = time();
+    $verif = 0;
     foreach ($GLOBALS["command"] as $key => $value) {
         $app = new $value();
+      
+       
+       if(md5(trim(strtolower($instruction)))==md5("create ".strtolower($app->get_start_cmd()))){
+              $verif++;
         $app->execute();
+       }
+     
+    }
+
+    if($verif>0){
+        echo "command finished in ".(time()-$time). "sec";
+    }else{
+        echo "no matching command found";
     }
     
 }

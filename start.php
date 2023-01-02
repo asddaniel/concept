@@ -3,7 +3,7 @@
 
 use App\Command\Kernel;
 
-Kernel::register("App\Code\LaravelTemplateGenerator");
+Kernel::register("App\Code\Templates\Laravel\LaravelTemplateGenerator");
 
 
 ?>

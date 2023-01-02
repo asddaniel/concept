@@ -2,7 +2,12 @@
 namespace App\Code\Templates\Laravel;
 
 use App\Contract\TemplateAppContract;
-use App\Code\TemplateAppGenerator;
+use App\Code\Templates\TemplateAppGenerator;
+use App\Code\PhpFileGenerator;
+use App\Code\TemplateCodeGenerator;
+use App\Command\Command;
+
+
 
 class LaravelTemplateGenerator extends TemplateAppGenerator 
 {
@@ -12,7 +17,10 @@ protected array $attributes = [];
 protected array $classRequestList = [];
 protected array $classControllerList = [];
 protected array $routeList = [];
+protected array $env = [];
+protected const command = "laravel-app";
 
+  
   public function loadSrc($json){
     $json = serializeJson(json_decode(file_get_contents($json)));
     
@@ -26,8 +34,28 @@ protected array $routeList = [];
     if(array_key_exists("models", $json)){
       $this->prepareModel($json["models"]);
     }
+
+    if(array_key_exists("env", $json)){
+      $this->prepare_env();
+    }
     
 
+  }
+  private function add_env($key, $value){
+    $this->env[$key] = $value;
+  }
+
+  
+  protected function generate_env(){
+    $file = new CustomFileGenerator(srcFile:$this->output_dir."/.env");
+    foreach ($this->env as $key => $value) {
+         $file->patchLine($key, $value);
+    }
+
+  }
+
+  protected function prepare_env(){
+      
   }
 
   protected function addCommand(string $cmd){
@@ -155,7 +183,7 @@ protected array $routeList = [];
     
       $this->loadSrc("json/laravelTest.json");
      
-      // $this->finalCommande();
+  
     
       $this->runCommand();
       $this->createModel();
