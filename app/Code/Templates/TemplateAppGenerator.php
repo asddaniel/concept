@@ -1,10 +1,12 @@
 <?php
 namespace App\Code\Templates;
 use App\Contract\TemplateAppContract;
+use App\Command\Command;
 
 abstract class TemplateAppGenerator implements TemplateAppContract{
 
     protected const command = "App";
+    protected const manifest_file_name = "manifest.json";
     
     protected array $codes;
     protected array $sources = [];
@@ -28,9 +30,10 @@ abstract class TemplateAppGenerator implements TemplateAppContract{
     }
     public function runCommand(){
       foreach ($this->commandList as $key => $value) {
-         //   echo $value;
+         
            
-         exec($value);
+         Command::exec($value);
+         // sleep(2);
       }
 
     }

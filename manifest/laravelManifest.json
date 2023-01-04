@@ -1,0 +1,23 @@
+{
+    
+    "App":{
+        "output_dir": "test",
+        "env":{"app_name": "BLOG"},
+        "models":{
+            "Article":{
+                
+                "attributes":{"title":"string", "content": "string", "onLine": "boolean"},
+    
+                "fillable":["title", "content"]
+            },
+            "Produit":{
+                "attributes":{"name":"string", "description": "string", "price": "integer"},
+                "fillable":["name", "price", "description"]
+            },
+            "Client":{
+                "attributes":{"name":"string", "description": "string"},
+                "fillable":["name", "description"]
+            }
+            }
+    }
+}

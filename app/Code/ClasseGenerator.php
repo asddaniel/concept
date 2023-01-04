@@ -82,7 +82,7 @@ class ClasseGenerator  extends CodeGenerator{
         $this->removable = $removable;
         
 
-        // $this->treat();
+       
 
 
     }
@@ -96,16 +96,16 @@ class ClasseGenerator  extends CodeGenerator{
             $class = $this->code->getClasses();
             $this->main_class = $class[array_key_first($class)];
             
-            // $this->output_path = "output/Client.php";
+          
             
         }else{
             if(!empty($this->name)){
                $this->setNamespace();
                
             }else{
-                //doit retourner une exception
+                
                 throw new Exception('You must give a name for the class');
-                return 'impossible de crée une classe sans nom';
+               
             }
         }
         
@@ -121,7 +121,7 @@ class ClasseGenerator  extends CodeGenerator{
         $this->setUses();
         $this->setStrictType();
         $this->setTraits();
-        // $this->generate($this->code);
+        
 
 
     }
@@ -157,7 +157,7 @@ class ClasseGenerator  extends CodeGenerator{
     }
 
     public function addProperty(Property $property){
-        // print_r($property);
+        
         array_push($this->property, $property);
     }
 
@@ -190,9 +190,9 @@ class ClasseGenerator  extends CodeGenerator{
     }
 
     protected function setProperty(){
-        // print_r($this->main_class);
+       
         foreach ($this->property as $key => $value) {
-            // print_r($value);
+           
              $this->main_class->removeProperty($value->getName());
              $this->main_class->addMember($value);
         
@@ -263,8 +263,7 @@ class ClasseGenerator  extends CodeGenerator{
 
     protected function setNamespace(){
         if(!empty($this->namespace)){
-            // $namespace = new PhpNamespace('Foo');
-            //  echo"oool";
+            
             
             $this->mainNamespace  = $this->code->addNamespace(str_replace("/", "\\", $this->namespace));
             $this->main_class = $this->mainNamespace->addClass($this->name);
@@ -273,7 +272,7 @@ class ClasseGenerator  extends CodeGenerator{
         }else{
             $this->main_class = $this->code->addClass($this->name);
         }
-        //  $this->code->addNamespace($this->namespace);
+        
     }
 
 }

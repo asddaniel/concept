@@ -19,6 +19,7 @@ protected array $classControllerList = [];
 protected array $routeList = [];
 protected array $env = [];
 protected const command = "laravel-app";
+protected const manifest_file_name = "laravelManifest.json";
 
   
   public function loadSrc($json){
@@ -119,6 +120,11 @@ protected const command = "laravel-app";
                 break;
         }
       }
+
+       
+     
+
+
        if(is_null($this->models)) $this->models = [];
        if(is_null($this->classRequestList)) $this->classRequestList = [];
        array_push($this->classRequestList, $classRequest1);
@@ -151,7 +157,7 @@ protected const command = "laravel-app";
   }
   private function generateClass(string $path, $class){
 
-    echo " generation de la classe ".$class["name"]."
+    echo " generate  class ".$class["name"]."
     ";
      $code = new TemplateCodeGenerator(sourceCode:json_encode($class));
      
@@ -170,8 +176,10 @@ protected const command = "laravel-app";
 
   }
   protected function finalCommande(){
+    echo "
+    running final command";
     // array_push($this->commandList, "php ".$this->output_dir."/artisan migrate ");
-    array_push($this->commandList, " php ".$this->output_dir."/artisan serve ");
+    Command::exec(" php ".$this->output_dir."/artisan serve ");
 
   }
   protected function creationCommand(){
@@ -184,11 +192,12 @@ protected const command = "laravel-app";
       $this->loadSrc("json/laravelTest.json");
      
   
-    
+      
       $this->runCommand();
       $this->createModel();
       $this->createRequest();
       $this->createRoute();
+      $this->finalCommande();
   }
 
 
