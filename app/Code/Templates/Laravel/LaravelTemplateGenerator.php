@@ -59,6 +59,23 @@ protected const manifest_file_name = "laravelManifest.json";
       
   }
 
+  protected function generate_migrations(){
+    foreach ($this->models as $key => $value) {
+      $dir = dir($this->output_dir.'/database/migrations');
+$fichiers = array() ;
+while( $nom = $dir->read() ) $fichiers[] = $nom ;
+// print_r($fichiers);
+$GLOBALS["temp"] = strtolower($value["name"]);
+$data = array_ordonne(array_filter($fichiers, function($e){
+   
+    return preg_match("/".$GLOBALS["temp"]."/", $e);
+}));
+// print_r($data);
+
+    }
+    
+  }
+
   protected function addCommand(string $cmd){
     array_push($this->commandList, $cmd);
   }
@@ -99,9 +116,10 @@ protected const manifest_file_name = "laravelManifest.json";
             case 'attributes':
              
               $body_rules = "";
-           
+           $classModel["type"] =$val;
             foreach ($val as $cle => $valeur) {
-              $body_rules = $body_rules."'".$cle."'=>'".$valeur."',";
+              $body_rules = $body_rules."'".$cle."'=>'".$valeur."',
+              ";
             }
 
 
@@ -197,7 +215,8 @@ protected const manifest_file_name = "laravelManifest.json";
       $this->createModel();
       $this->createRequest();
       $this->createRoute();
-      $this->finalCommande();
+      $this->generate_migrations();
+      // $this->finalCommande();
   }
 
 

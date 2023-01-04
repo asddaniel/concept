@@ -58,14 +58,25 @@ use App\Code\CustomFileGenerator;
 // $generator->loadFromSrc("json/class.json");
 // $classe = new ClasseGenerator(name:"Client", src:"output/test.php", methods:[new MethodGenerator(name: "participer", removable_parameters:['value'], srcMethod:$method, literal:"return view('accueil');", visibility:['protected', 'static'])], constants:[new ConstantGenerator(name:"euler", value:45, visibility:["static", "private"], comments:["method"])], property:[new PropertyGenerator(name:"user", value:"fred", type:"string", comments:["hello"], visibility:["protected", "readonly"])], use:["pop", "App\contract"], traits:["App\Models", "App\Http\Request"], implements: ["Bouari", "portable"], output_path:"output/Client.php", visibility:["abstract", "readonly"]);
 // $classe->treat();
-$file = file_get_contents("test/.env");
-$tab = file('test/.env');
-// var_dump($tab);
-for($i=0 ; $i<count($tab) ; $i++){
-    $research = "app_name";
-   echo preg_match("/".strtoupper($research)."/", $tab[$i]);
-echo $tab[$i].'<br>';
-}
+// $file = file_get_contents("test/.env");
+// $tab = file('test/.env');
+// // var_dump($tab);
+// for($i=0 ; $i<count($tab) ; $i++){
+//     $research = "app_name";
+//    echo preg_match("/".strtoupper($research)."/", $tab[$i]);
+// echo $tab[$i].'<br>';
+// }
 // $file = new CustomFileGenerator(srcFile:"test/.env");
 // $file->addText("bonjour");
+
+$dir = dir('test/database/migrations');
+$fichiers = array() ;
+while( $nom = $dir->read() ) $fichiers[] = $nom ;
+// print_r($fichiers);
+$data = array_filter($fichiers, function($e){
+    $art = "article";
+    return preg_match("/".$art."/", $e);
+});
+print_r($data);
+
 ?>
