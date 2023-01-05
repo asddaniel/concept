@@ -1,23 +1,28 @@
 {
-    
-    "App":{
-        "output_dir": "test",
-        "env":{"app_name": "BLOG"},
-        "models":{
-            "Article":{
-                
-                "attributes":{"title":"string", "content": "string", "onLine": "boolean"},
-    
-                "fillable":["title", "content"]
-            },
-            "Produit":{
-                "attributes":{"name":"string", "description": "string", "price": "integer"},
-                "fillable":["name", "price", "description"]
-            },
-            "Client":{
-                "attributes":{"name":"string", "description": "string"},
-                "fillable":["name", "description"]
-            }
-            }
-    }
+    "name":"AppLaravel",
+    "finalize":"true",
+    "output_dir": "test2",
+    "env":{"app_name": "BLOG"},
+    "database":{
+        "db_name":"test",
+        "username":"root",
+        "host":"127.0.0.1",
+        "password":""
+    },
+    "models":{
+        "Article":{
+            
+            "attributes":{"title":"string", "content": "string", "onLine": "boolean"},
+
+            "fillable":["title", "content"]
+        },
+        "Produit":{
+            "attributes":{"name":"string", "description": "string", "price": "integer"},
+            "fillable":["name", "price", "description"]
+        },
+        "Client":{
+            "attributes":{"name":"string", "description": "string"},
+            "fillable":["name", "description"]
+        }
+        }
 }

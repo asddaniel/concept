@@ -13,11 +13,55 @@ use App\Code\CustomFileGenerator;
 // // $class = new Nette\PhpGenerator\ClassType('Demo');
 // $class = Nette\PhpGenerator\ClassType::fromCode(file_get_contents("app/Domain/Exemple.php", true));
 // $method = $class->getMethod('__set')->cloneWithName("__set");
-// $code = PhpFile::fromCode(file_get_contents("output1/routes/web.php"), "eeef");
+// $code = PhpFile::fromCode(file_get_contents("test/app/Http/Controllers/ArticleController.php"));
+// $classe = $code->getClasses();
+// foreach ($classe as $key => $value) {
+//     $value->removeMethod("index");
+//     echo($code);
+    
+//     die;
+// }
+$final_file = "";
+$fichier = file("test2/database/migrations/2023_01_04_195903_create_clients_table.php");
+$start = "";
+foreach ($fichier as $key => $value) {
+    $val = "});";
+    // echo $key."
+    // ";
+    if(preg_match("/timestamps/", $value)){
+        $start = $key;
+    }
+   if($val == trim($value)){
+    $end = $key;
+    // print_r($value);
+   }
+}
+$tab_patcher = [];
+foreach ($fichier as $key => $value) {
+    if($key==$start){ 
+        array_push($tab_patcher, $value);
+        $final_file.= "
+        ";}elseif ($key>$start  && $key < $end) {
+          
+        }else{
+            $final_file.="
+".$value; array_push($tab_patcher, $value);
+        }
+}
+print_r($tab_patcher);
 // // $code = new PhpFile();
 // $code->addUse("Illuminate\Support\Facades\Route");
 // $code->addUse("Illuminate\Support\Facades\Helpers");
 // //$code->setStrictTypes(); // adds declare(strict_types=1)
+// $file = new CustomFileGenerator("test/database/migrations/2023_01_01_045548_create_clients_table.php");
+// //$code = PhpFile::fromCode(file_get_contents("test/database/migrations/2023_01_01_045548_create_clients_table.php"));
+// $x = "
+//         Schema::create('produits', function (Blueprint @table) {
+//             @table->id();
+//             @table->string('title');
+// ";
+// $file->patchLine("timestamps", str_replace("@", "$", $x));
+// echo($file->get_content());
 
 // $class = $code->addClass('Foo\A');
 //  $function = $code->addFunction('Foo\foo');
@@ -69,14 +113,14 @@ use App\Code\CustomFileGenerator;
 // $file = new CustomFileGenerator(srcFile:"test/.env");
 // $file->addText("bonjour");
 
-$dir = dir('test/database/migrations');
-$fichiers = array() ;
-while( $nom = $dir->read() ) $fichiers[] = $nom ;
-// print_r($fichiers);
-$data = array_filter($fichiers, function($e){
-    $art = "article";
-    return preg_match("/".$art."/", $e);
-});
-print_r($data);
+// $dir = dir('test/database/migrations');
+// $fichiers = array() ;
+// while( $nom = $dir->read() ) $fichiers[] = $nom ;
+// // print_r($fichiers);
+// $data = array_filter($fichiers, function($e){
+//     $art = "article";
+//     return preg_match("/".$art."/", $e);
+// });
+// print_r($data);
 
 ?>
