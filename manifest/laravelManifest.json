@@ -2,7 +2,6 @@
     "name":"AppLaravel",
     "finalize":"true",
     "output_dir": "test2",
-    "env":{"app_name": "BLOG"},
     "database":{
         "db_name":"test",
         "username":"root",
