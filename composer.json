@@ -17,6 +17,6 @@
     "minimum-stability": "dev",
     "require": {
         "nette/php-generator": "4.0.5",
-        "nikic/php-parser": "^5.0.0"
+        "nikic/php-parser": "^4.15.2"
     }
 }
