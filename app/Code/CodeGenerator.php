@@ -35,7 +35,7 @@ abstract class CodeGenerator {
     }
     protected function addComment( string $comment){
      
-        // $this->code = $this->code->setInitialized(true);
+        
     foreach ($this->comments as $key => $value) {
       
         $this->code->addComment($value);

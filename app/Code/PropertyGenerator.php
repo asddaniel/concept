@@ -31,7 +31,7 @@ class PropertyGenerator extends CodeGenerator{
         $this->value = $value;
         $this->code = new Property($this->name);
          
-        // $this->treat();
+      
 
     }
 
@@ -50,7 +50,7 @@ class PropertyGenerator extends CodeGenerator{
     }
 
     protected function setValue(){
-        // print_r($this->value);
+       
         if(!empty($this->value)){
             $this->code->setValue($this->value);
         }

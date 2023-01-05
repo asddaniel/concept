@@ -55,7 +55,7 @@ protected  $manifest_file_name = "laravelManifest.json";
       $this->add_env("APP_NAME", $json["name"]);
     }
     if(array_key_exists("finalize", $json)){
-      // echo trim($json["finalize"])=="true"?"-ok-":"-non-";
+      
       if(trim($json["finalize"])=="true"){
         array_push($this->finalCommande, "php ".$this->output_dir."/artisan migrate ");
         array_push($this->finalCommande, "php ".$this->output_dir."/artisan serve");
@@ -274,7 +274,7 @@ $this->writeColumnMigration($value["type"], $file_name);
        array_push($this->classRequestList, $classRequest1);
        array_push($this->classRequestList, $classRequest2);
         array_push($this->models, $classModel);
-        // var_dump($this->models);
+       
       }
   }
   protected function createRoute(){
@@ -322,7 +322,7 @@ $file->set_output_path($this->output_dir."/app/Providers/AppServiceProvider.php"
   }
 
   protected function bindProvider($model){
-    // print_r($this->output_dir);
+   
     try {
       $provider = PhpFile::fromCode(trim(file_get_contents($this->output_dir."/app/Providers/AppServiceProvider.php")));
   

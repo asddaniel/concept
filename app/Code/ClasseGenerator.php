@@ -14,7 +14,7 @@ use App\Traits\Helper;
 
 class ClasseGenerator  extends CodeGenerator{
 
-use Helper;
+    use Helper;
 
 
     protected string $namespace;
@@ -207,10 +207,10 @@ use Helper;
     }
 
     protected function setMethods(){
-        // var_dump($this->methods);
+        
         foreach ($this->methods as $key => $value) {
           try {
-            // echo $value;
+            
             $this->main_class->removeMethod($value->getName());
             $this->main_class->addMember($value);
           } catch (InvalidStateException $th) {

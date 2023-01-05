@@ -53,7 +53,6 @@ use Helper;
     $this->srcMethod = $srcMethod;
     $this->removable_parameters = $removable_parameters;
     
-    // $this->treat();
    }
 
    public function treat(){

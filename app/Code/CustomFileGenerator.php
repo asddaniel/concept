@@ -34,7 +34,7 @@ use Helper;
    }
    public function add_after_position(string $ref, int $pas, string $data){
     
-    // ini_set('memory_limit', '-1');
+
    
     $fichier = file($this->srcFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
   
@@ -59,7 +59,7 @@ $execute++;
         }
     }
     $this->contentFile = $end_file;
-    // unlink($end_file);
+    
 
    }
    public function addLine_by_position(int $position, string $line){
@@ -72,7 +72,7 @@ $execute++;
        }else{  $end_file.="
 ".$value;}
     }
-    // print_r($end_file);
+   
 $this->contentFile = $end_file;
    }
    public function patch_between(string $ref_start, string $ref_end, string $patch){

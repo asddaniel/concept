@@ -72,7 +72,7 @@ class TemplateCodeGenerator {
            $main_method->set($cle, $valeur);
         }
         if(!empty($method)){
-            // print_r($main_method);
+            
             $main_method->treat();
             $this->class->addMethod($main_method->get());
         }
@@ -82,12 +82,12 @@ class TemplateCodeGenerator {
         
         $mainproperty = new PropertyGenerator($name);
         foreach ($property as $cle => $valeur) {
-            //  print_r($value);
+            
            $mainproperty->set($cle, $valeur);
         }
         if(!empty($property)){
             $mainproperty->treat();
-            // var_dump($this->class);
+           
             $this->class->addProperty($mainproperty->get());
         }
     }
@@ -105,20 +105,19 @@ class TemplateCodeGenerator {
     public function loadFromSrc($src){
         $this->sourceFile= json_decode(file_get_contents($src));
         
-        // $this->generate();
+        
 
     }
     public function generate(){
         $this->class = new ClasseGenerator();
-        // var_dump($this->sourceFile);
-        // echo " generation ";
+      
         if(!empty($this->sourceCode)){
             
             $this->class->set('src', $this->sourceCode);
         }
         
         if (!empty($this->sourceFile)) {
-            // $this->class = new ClasseGenerator();
+            
             $this->treatClass($this->serializeJson($this->sourceFile)); 
         }else{
             $this->class->treat();
