@@ -10,10 +10,16 @@ use Nette\InvalidStateException;
 use Nette\PhpGenerator\Constant;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\Property;
+use App\Traits\Helper;
 
 class ClasseGenerator  extends CodeGenerator{
+
+use Helper;
+
+
     protected string $namespace;
     protected  string $name;
+    
     /* 
             @var visibility must containt abstract, final or Readonly or the three
 

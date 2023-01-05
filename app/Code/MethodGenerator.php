@@ -2,9 +2,10 @@
 namespace App\Code; 
 
 use Nette\PhpGenerator\Method;
+use App\Traits\Helper;
 
 class MethodGenerator extends CodeGenerator{
-
+use Helper;
     /*
     @var visibility must be in protected, public, static, readonly, private, abstract
 

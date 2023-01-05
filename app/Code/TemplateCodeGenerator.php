@@ -2,9 +2,11 @@
 namespace App\Code;
 
 use Nette\PhpGenerator\ClassType;
+use App\Traits\Helper;
 
 
 class TemplateCodeGenerator {
+    use Helper;
 
     protected string $src;
     protected  $class;
@@ -117,7 +119,7 @@ class TemplateCodeGenerator {
         
         if (!empty($this->sourceFile)) {
             // $this->class = new ClasseGenerator();
-            $this->treatClass(serializeJson($this->sourceFile)); 
+            $this->treatClass($this->serializeJson($this->sourceFile)); 
         }else{
             $this->class->treat();
         }

@@ -1,7 +1,12 @@
 <?php
 namespace App\Code;
 
+use App\Traits\Helper;
+
+
 class CustomFileGenerator{
+
+use Helper;
 
     protected $srcFile;
     protected $contentFile;

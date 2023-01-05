@@ -8,11 +8,14 @@ use App\Code\TemplateCodeGenerator;
 use App\Command\Command;
 use App\Code\CustomFileGenerator;
 use Nette\PhpGenerator\PhpFile;
+use App\Traits\Helper;
 
 
 
 class LaravelTemplateGenerator extends TemplateAppGenerator 
 {
+use Helper;
+ 
 
 protected array $models = [];
 protected array $attributes = [];
@@ -22,13 +25,13 @@ protected array $finalCommande=[];
 protected array $routeList = [];
 protected array $env = [];
 protected array $database = [];
-protected const command = "laravel-app";
+protected const command = "laravel-api";
 protected  $manifest_file_name = "laravelManifest.json";
 
   
   public function loadSrc($json){
    
-    $json = serializeJson(json_decode(file_get_contents($json)));
+    $json = $this->serializeJson(json_decode(file_get_contents($json)));
     
     $this->output_dir = $json["output_dir"];
     
@@ -149,7 +152,7 @@ protected  $manifest_file_name = "laravelManifest.json";
                   while( $nom = $dir->read() ) $fichiers[] = $nom ;
 
                   $GLOBALS["temp"] = strtolower($value["name"]);
-                  $data = array_ordonne(array_filter($fichiers, function($e){
+                  $data = $this->array_ordonne(array_filter($fichiers, function($e){
                     
                       return preg_match("/".$GLOBALS["temp"]."/", $e);
                   }));
@@ -324,7 +327,7 @@ $file->set_output_path($this->output_dir."/app/Providers/AppServiceProvider.php"
       $provider = PhpFile::fromCode(trim(file_get_contents($this->output_dir."/app/Providers/AppServiceProvider.php")));
   
     } catch (Nette\InvalidStateException $th) {
-      print_r($th);
+     
     }
      $namespace = $provider->getNamespaces();
     foreach ($namespace as $key => $value) {

@@ -3,6 +3,7 @@ namespace App\Code\Templates;
 use App\Contract\TemplateAppContract;
 use App\Command\Command;
 
+
 abstract class TemplateAppGenerator implements TemplateAppContract{
 
     protected const command = "App";
