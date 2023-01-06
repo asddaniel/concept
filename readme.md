@@ -6,6 +6,7 @@
 ![Build Status](https://img.shields.io/badge/asd-daniel-brightgreen?style=flat-square)
 
 Concept is a framework for generate code with a json config file.
+the basis of any software developer is not to repeat oneself (DRY principle), **concept** is a framework that exploits this principle harshly, namely to write configurable application templates for each new project.
 the framework is built in php for the moment, but aims to be built in different programming languages, the author is counting on the contributors to build a new way of designing applications by gaining productivity while focusing on the conceptual aspects.
 ## Features
 The framework is based on the following concepts:
