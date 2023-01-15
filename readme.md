@@ -53,7 +53,7 @@ the command Line will ask you to enter a command then you must give :
 
 if you are under linux or Mac start only the phpcommand (you must ensure that php is installed and it is present in the path whether you are under windows or linux)
 
-    phpcommand create laravel-api
+    php phpcommand create laravel-api
 
 if you have correctly filled your configuration file in json and you have chosen to start the application immediately, the whole application will be generated and you can already go to the browser and test the api endpoints under localhost and port 8000
 ## Dependency 
