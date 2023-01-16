@@ -25,13 +25,11 @@ concept is based on the creation of application templates that can be generated 
 you must start by cloning the starter project on github, this project contains all the elements necessary to load and use the base library that will generate your application.  this starter project only contains the tools needed to generate the Laravel api application template
 the link for the repository is [here](https://github.com/asddaniel/concept-start.git)
 
-    git clone https://github.com/asddaniel/concept-start.git
-then you must install the basic package containing all the dependency libraries
+    composer create-project asddaniel/conception app
+this will create a new concept project in a directory "app". 
 
 
-    composer require asddaniel/concept
-
-> once install the next  step is to use basic commands to generate your application. the startup project contains a folder named manifest, you will find there a file named LaravelManifest.json, all the configuration of your application must be written in this file, the program will interpret the data above in order to generate the application
+> once install the next  step is to use basic commands to generate your application inside th e directory app. the project contains a folder named manifest, you will find there a file named LaravelManifest.json, all the configuration of your application must be written in this file, the program will interpret the data above in order to generate the application
 ## Commands and uses
 the example configuration file contains an example of the minimal configuration to be done. all parameters are optional, but the data format must be respected to guarantee a functional application
 > example config file 
